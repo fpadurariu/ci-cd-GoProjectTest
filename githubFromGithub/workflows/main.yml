@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [(main|release|task|feature|bugfix|hotfix|BUGFIX)/.*]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -18,24 +18,19 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: alpine-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Set up environment
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.18
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
 
-      # Builds the program
-      - name: Builds the program
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
         run: |
-          go build main.go
-
-      # Runs the program
-      - name: Runs the program
-        run: |
-          go run main.go
+          echo Add other actions to build,
+          echo test, and deploy your project.
